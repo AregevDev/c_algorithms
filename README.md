@@ -1,10 +1,10 @@
 # c_algorithms
-Collection of data structures and algoritms to help me during collage.  
+Collection of data structures and algorithms to help me during collage.  
 This repository holds headers of common data structure used during my course.
 
 ### Usage
 Simply download the individual headers and add them to your project.  
-Due to C not having generics, you must change the data item strutures depending on the use case.
+Due to C not having generics, you must change the data item structures depending on the use case.
 
 ### Download Links
 | Header         | Data Structure     | Download                                                                                          |
