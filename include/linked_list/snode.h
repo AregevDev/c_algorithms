@@ -88,9 +88,82 @@ void snode_append_after(SNode* node, SNodeItem data)
     node->next = n;
 }
 
+/// Pushes a new node and keeps the list sorted.
+/// @param node pointer to the head of the list
+/// @param data the item to push
+void snode_push_sorted(SNode** node, SNodeItem data)
+{
+    SNode* current;
+
+    if (!*node || (*node)->data.x >= data.x)
+        snode_push_front(node, data);
+    else
+    {
+        current = *node;
+        while (current->next && current->next->data.x < data.x)
+            current = current->next;
+
+        snode_append_after(current, data);
+    }
+}
+
+/// Deletes a node by it's data.
+/// @param node pointer to the head oh the list.
+/// @param data data to delete by.
+void snode_delete(SNode** node, SNodeItem data)
+{
+    SNode* temp = *node;
+    SNode* prev;
+
+    if (temp && temp->data.x == data.x)
+    {
+        *node = temp->next;
+        free(temp);
+        return;
+    }
+
+    while (temp && temp->data.x != data.x)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (!temp) return;
+
+    prev->next = temp->next;
+    free(temp);
+}
+
+/// Deletes a node by index.
+/// @param node pointer to the head of the list.
+/// @param index position of the node.
+void snode_delete_at(SNode** node, int index)
+{
+    if (!*node) return;
+    SNode* temp = *node;
+
+    if (index == 0)
+    {
+        *node = temp->next;
+        free(temp);
+        return;
+    }
+
+    for (int i = 0; temp && i < index - 1; ++i)
+        temp = temp->next;
+
+    if (!temp || !(temp->next))
+        return;
+
+    SNode* next = temp->next->next;
+    free(temp->next);
+
+    temp->next = next;
+}
+
 /// Prints the entire list to stdout.
 /// This function should change depending on the NodeItem.
-/// @param node the head of the list.
+/// @param node pointer to the head of the list.
 void snode_print(SNode* node)
 {
     printf("[");
