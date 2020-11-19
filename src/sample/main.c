@@ -8,9 +8,10 @@ int main()
     SNode* node = snode_create((SNodeItem){1});
     snode_push_sorted(&node, (SNodeItem){10});
     snode_push_sorted(&node, (SNodeItem){12});
+    snode_push_front(&node, (SNodeItem){10});
 
     snode_print(node);
-    snode_delete_at(&node, 1);
+    snode_delete_all(&node, (SNodeItem){10});
     snode_print(node);
 
     Stack* s = stack_create(10);

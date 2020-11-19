@@ -134,6 +134,31 @@ void snode_delete(SNode** node, SNodeItem data)
     free(temp);
 }
 
+/// Deletes every occurrence of data in the list.
+/// @param node pointer to the head oh the list.
+/// @param data data to delete by.
+void snode_delete_all(SNode** node, SNodeItem data)
+{
+    SNode* temp = snode_create((SNodeItem) {0});
+    temp->next = *node;
+
+    SNode* current = temp;
+    while (current->next)
+    {
+        if (current->next->data.x == data.x)
+        {
+            SNode* t = current->next;
+            current->next = current->next->next;
+            free(t);
+        }
+        else
+            current = current->next;
+    }
+
+    *node = temp->next;
+    free(temp);
+}
+
 /// Deletes a node by index.
 /// @param node pointer to the head of the list.
 /// @param index position of the node.
