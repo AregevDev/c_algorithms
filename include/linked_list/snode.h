@@ -94,6 +94,7 @@ void snode_append_after(SNode* node, SNodeItem data)
 void snode_push_sorted(SNode** node, SNodeItem data)
 {
     SNode* current;
+    SNode* new_node;
 
     if (!*node || (*node)->data.x >= data.x)
         snode_push_front(node, data);
@@ -103,7 +104,9 @@ void snode_push_sorted(SNode** node, SNodeItem data)
         while (current->next && current->next->data.x < data.x)
             current = current->next;
 
-        snode_append_after(current, data);
+        new_node = snode_create(data);
+        new_node->next = current->next;
+        current->next = new_node;
     }
 }
 
